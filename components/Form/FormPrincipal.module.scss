@@ -3,10 +3,10 @@
 }
 
 .title {
-  text-align:center;
+  text-align: center;
   font-size: 2rem;
-  font-weight:600;
-  text-transform:capitalize;
+  font-weight: 600;
+  text-transform: capitalize;
   font-family: "Montserrat", sans-serif;
   color: #24b9cc;
   margin-top: 0;
@@ -14,7 +14,7 @@
 
 @media (min-width: 768px) {
   .title {
-      font-size: 48px;
+    font-size: 48px;
   }
 }
 
@@ -28,7 +28,7 @@
   padding: 0.5rem 1rem;
   border-radius: 20px;
   z-index: 100;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
-
-
-
