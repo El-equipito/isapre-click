@@ -1,15 +1,15 @@
-.FooterCont{
+.FooterCont {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color:white;
+  background-color: white;
   box-shadow: 0 -2px rgba(0, 0, 0, 0.08);
   margin-top: 2rem;
 }
-  
+
 .logo {
   width: 263px;
-  height: 130px;
+  padding: 1rem;
   cursor: pointer;
   @media only screen and (max-width: 600px) {
     width: 200px;
@@ -41,43 +41,43 @@
 .hrStyle {
   width: 95%;
 }
-.textFoot {	
+.textFoot {
   text-align: center;
   padding: 0 0.5rem;
 }
 .textFoot p {
-  font-size:  0.75rem;
+  font-size: 0.75rem;
   font-weight: 500;
   line-height: 1.2rem;
   color: #24b9cc;
   text-align: center;
   text-transform: capitalize;
 }
-  
+
 @media screen and (min-width: 600px) {
-  .FooterCont{
-      display: flex;
-      flex-direction: column;
-      align-items:  center;
-  }
-  
- .Pages {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  gap: 0.5rem;
-  }
-  .ButtonPages {
-      margin: 5px;
-      color: #24b9cc;
-      font-size: 1.2rem;
+  .FooterCont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .textFoot {	
-      padding: 0.5rem;
-      text-align: center;
-    }
-    .textFoot p {
-      font-size:  1rem;
-    } 
+  .Pages {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: 0.5rem;
+  }
+  .ButtonPages {
+    margin: 5px;
+    color: #24b9cc;
+    font-size: 1.2rem;
+  }
+
+  .textFoot {
+    padding: 0.5rem;
+    text-align: center;
+  }
+  .textFoot p {
+    font-size: 1rem;
+  }
 }

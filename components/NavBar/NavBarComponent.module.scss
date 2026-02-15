@@ -10,18 +10,17 @@
 }
 
 .logo {
-  width: 263px;
-  height: 130px;
+  width: 140px;
   cursor: pointer;
   @media only screen and (max-width: 600px) {
     width: 200px;
-    height: 100px;
+    height: 60px;
   }
 }
 
 .menuItem {
   color: rgb(23, 140, 182);
-   // Este estilo se aplicará a los elementos del menú
+  // Este estilo se aplicará a los elementos del menú
 }
 
 .menuButton {
