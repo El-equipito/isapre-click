@@ -10,6 +10,11 @@ const nextConfig = {
    */
   output: 'standalone',
 
+  // Desactivar indicador de desarrollo en prod
+  devIndicators: {
+    buildActivity: false,
+  },
+
   publicRuntimeConfig: {
     env: {
       channel_id: process.env.CHANNEL_ID,
