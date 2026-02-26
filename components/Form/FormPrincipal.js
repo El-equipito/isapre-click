@@ -73,7 +73,7 @@ const FormPrincipal = () => {
       const processedData = {
         ...data,
         dependents:
-          data.dependents && data.dependents.length > 0 ? data.dependents : 0,
+          data.dependents && data.dependents.length > 0 ? data.dependents : [],
       };
 
       const response = await fetch(
