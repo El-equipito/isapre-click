@@ -299,7 +299,7 @@ const FormPrincipal = () => {
                 }}
               />
             }
-            label="Dependientes"
+            label="Cargas"
           />
 
           {hasDependents && (
@@ -361,7 +361,7 @@ const FormPrincipal = () => {
                     width: "100%",
                   }}
                 >
-                  Agregar dependiente
+                  Agregar Cargas
                 </button>
               </div>
             </Box>
