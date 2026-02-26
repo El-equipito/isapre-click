@@ -69,13 +69,23 @@ const FormPrincipal = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("https://isapre-backend-64505245681.southamerica-east1.run.app/clients", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      // Enviar 0 si no hay dependientes, o el array si los hay
+      const processedData = {
+        ...data,
+        dependents:
+          data.dependents && data.dependents.length > 0 ? data.dependents : 0,
+      };
+
+      const response = await fetch(
+        "https://isapre-backend-64505245681.southamerica-east1.run.app/clients",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(processedData),
         },
-        body: JSON.stringify(data),
-      });
+      );
 
       if (!response.ok) {
         throw new Error("Error al enviar los datos");
