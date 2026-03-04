@@ -37,7 +37,7 @@ const FormPrincipal = () => {
       .number()
       .typeError("Debe ser un número")
       .required("El ingreso es requerido"),
-    dependents: yup
+      dependentsList: yup
       .array()
       .of(
         yup.object().shape({
@@ -67,7 +67,7 @@ const FormPrincipal = () => {
   const [hasDependents, setHasDependents] = useState(false);
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "dependents",
+    name: "dependentsList",
   });
 
   const onSubmit = async (data) => {
@@ -75,8 +75,8 @@ const FormPrincipal = () => {
       // Enviar 0 si no hay dependientes, o el array si los hay
       const processedData = {
         ...data,
-        dependents:
-          data.dependents && data.dependents.length > 0 ? data.dependents : [],
+        dependentsList:
+          data.dependentsList && data.dependentsList.length > 0 ? data.dependentsList : [],
       };
 
       const response = await fetch(
@@ -359,9 +359,9 @@ const FormPrincipal = () => {
                       fullWidth
                       label={`RUT`}
                       placeholder="Ej: 12345678-9"
-                      {...register(`dependents.${index}.rut`)}
-                      error={!!errors.dependents?.[index]?.rut}
-                      helperText={errors.dependents?.[index]?.rut?.message}
+                      {...register(`dependentsList.${index}.rut`)}
+                      error={!!errors.dependentsList?.[index]?.rut}
+                      helperText={errors.dependentsList?.[index]?.rut?.message}
                     />
                   </Grid>
                   <Grid item xs={4}>
@@ -369,9 +369,9 @@ const FormPrincipal = () => {
                       fullWidth
                       label={`Edad`}
                       placeholder="Ej: 17"
-                      {...register(`dependents.${index}.age`)}
-                      error={!!errors.dependents?.[index]?.age}
-                      helperText={errors.dependents?.[index]?.age?.message}
+                      {...register(`dependentsList.${index}.age`)}
+                      error={!!errors.dependentsList?.[index]?.age}
+                      helperText={errors.dependentsList?.[index]?.age?.message}
                     />
                   </Grid>
                   <Grid
