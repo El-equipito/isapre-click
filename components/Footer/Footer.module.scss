@@ -9,11 +9,9 @@
 
 .logo {
   width: 263px;
-  padding: 1rem;
   cursor: pointer;
   @media only screen and (max-width: 600px) {
-    width: 200px;
-    height: 100px;
+    width: 180px;
   }
 }
 

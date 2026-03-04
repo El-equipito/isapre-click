@@ -22,7 +22,10 @@ const FormPrincipal = () => {
       .typeError("Debe ser un número")
       .min(0, "Edad no válida")
       .required("La edad es requerida"),
-    rut: yup.string().required("El RUT es requerido"),
+    rut: yup
+      .string()
+      .min(8, "El RUT debe tener al menos 8 caracteres")
+      .required("El RUT es requerido"),
     email: yup
       .string()
       .email("Email inválido")
@@ -77,7 +80,7 @@ const FormPrincipal = () => {
       };
 
       const response = await fetch(
-        "https://isapre-backend-64505245681.southamerica-east1.run.app/clients",
+        "https://isapre-backend-919891843647.southamerica-east1.run.app/clients",
         {
           method: "POST",
           headers: {
@@ -87,17 +90,51 @@ const FormPrincipal = () => {
         },
       );
 
+      const result = await response.json();
+
       if (!response.ok) {
-        throw new Error("Error al enviar los datos");
+        // el backend devuelve message, error y statusCode
+        const errorMsg =
+          result.message || result.error || "Error al enviar los datos";
+
+        // si el servidor considera un rut o email duplicado como 400/409
+        const lower = errorMsg.toLowerCase();
+        const isDuplicate =
+          lower.includes("ya está registrado") ||
+          lower.includes("ya fue registrado") ||
+          lower.includes("ya existe");
+
+        if (isDuplicate) {
+          if (lower.includes("rut")) {
+            toast.error("El RUT ingresado ya fue registrado");
+          } else if (lower.includes("email") || lower.includes("correo")) {
+            toast.error("El correo electrónico ingresado ya fue registrado");
+          } else {
+            toast.error(errorMsg);
+          }
+        } else if (response.status === 409) {
+          // casos explícitos de conflicto aunque no se usen actualmente
+          if (lower.includes("rut")) {
+            toast.error("El RUT ingresado ya fue registrado");
+          } else if (lower.includes("email") || lower.includes("correo")) {
+            toast.error("El correo electrónico ingresado ya fue registrado");
+          } else {
+            toast.error(errorMsg);
+          }
+        } else {
+          // otros errores no duplicados
+          toast.error(errorMsg);
+        }
+
+        throw new Error(errorMsg);
       }
 
-      const result = await response.json();
       console.log("Respuesta del servidor:", result);
       toast.success("Datos enviados correctamente");
       reset();
     } catch (e) {
       console.error(e);
-      toast.error("Error al enviar los datos");
+      // el toast ya se maneja arriba según el tipo de error
     }
   };
 
@@ -346,7 +383,7 @@ const FormPrincipal = () => {
                       aria-label="remove"
                       onClick={() => remove(index)}
                     >
-                      -
+                      x
                     </IconButton>
                   </Grid>
                 </Grid>
