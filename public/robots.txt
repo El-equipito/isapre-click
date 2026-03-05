@@ -1,0 +1,5 @@
+# https://cotizatuisapreya.cl/robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://cotizatuisapreya.cl/sitemap.xml

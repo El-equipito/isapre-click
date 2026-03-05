@@ -3,8 +3,11 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang="es">
+      <Html lang="es-CL">
         <Head>
+          <meta charSet="utf-8" />
+          <meta name="theme-color" content="#066c8e" />
+          <meta name="geo.region" content="CL" />
           {/* Preconnect to Google Fonts */}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
