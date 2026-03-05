@@ -17,6 +17,18 @@ class MyDocument extends Document {
           rel="stylesheet"
         />
         <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></link>
+          {/* Google Analytics (gtag.js) */}
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-7T8TQZX3GD" />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-7T8TQZX3GD');
+              `,
+            }}
+          />
         </Head>
         <body>
           <Main />
