@@ -396,6 +396,7 @@ const FormPrincipal = () => {
               ))}
               <div>
                 <button
+                  type="button"
                   onClick={() => append({ rut: "", age: "" })}
                   className={styles.btnDependts}
                   style={{
