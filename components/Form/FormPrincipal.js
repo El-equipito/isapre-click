@@ -37,7 +37,7 @@ const FormPrincipal = () => {
       .number()
       .typeError("Debe ser un número")
       .required("El ingreso es requerido"),
-      dependentsList: yup
+    dependentsList: yup
       .array()
       .of(
         yup.object().shape({
@@ -65,18 +65,22 @@ const FormPrincipal = () => {
   });
 
   const [hasDependents, setHasDependents] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { fields, append, remove } = useFieldArray({
     control,
     name: "dependentsList",
   });
 
   const onSubmit = async (data) => {
+    setIsSubmitting(true);
     try {
       // Enviar 0 si no hay dependientes, o el array si los hay
       const processedData = {
         ...data,
         dependentsList:
-          data.dependentsList && data.dependentsList.length > 0 ? data.dependentsList : [],
+          data.dependentsList && data.dependentsList.length > 0
+            ? data.dependentsList
+            : [],
       };
 
       const response = await fetch(
@@ -132,8 +136,10 @@ const FormPrincipal = () => {
       console.log("Respuesta del servidor:", result);
       toast.success("Datos enviados correctamente");
       reset();
+      setIsSubmitting(false); // Re-enable after success
     } catch (e) {
       console.error(e);
+      setIsSubmitting(false); // Re-enable on error to allow retry
       // el toast ya se maneja arriba según el tipo de error
     }
   };
@@ -391,7 +397,7 @@ const FormPrincipal = () => {
               <div>
                 <button
                   onClick={() => append({ rut: "", age: "" })}
-                  className={styles.btnHero}
+                  className={styles.btnDependts}
                   style={{
                     textAlign: "center",
                     marginTop: "10px",
@@ -430,8 +436,12 @@ const FormPrincipal = () => {
       <Box
         sx={{ marginTop: "20px", display: "flex", justifyContent: "center" }}
       >
-        <button type="submit" className={styles.btnHero}>
-          Enviar
+        <button
+          type="submit"
+          className={styles.btnHero}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Enviando..." : "Enviar"}
         </button>
       </Box>
     </Box>

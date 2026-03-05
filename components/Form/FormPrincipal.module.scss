@@ -28,6 +28,23 @@
   padding: 0.5rem 1rem;
   border-radius: 20px;
   z-index: 100;
+  cursor: pointer;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.btnDependts {
+  background-color: #24b9cc;
+  border: 2px solid #24b9cc;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  width: 10%;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  z-index: 100;
+  cursor: pointer;
   @media (max-width: 768px) {
     width: 100%;
   }
