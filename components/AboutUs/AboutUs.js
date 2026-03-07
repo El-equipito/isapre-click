@@ -26,8 +26,7 @@ const AboutUs = () => {
             </p>
             <p>
               Nos encargamos de <strong>cotizar, comparar y recomendar</strong>{" "}
-              los planes más adecuados entre instituciones como{" "}
-              <strong>Consalud, Colmena, Banmédica y Nueva Masvida</strong>.
+              los planes más adecuados <strong>para tu beneficioy ahorro</strong>.
               Nuestro objetivo es asegurar que cada trabajador, ya sea
               dependiente o independiente, reciba el cuidado y la protección que
               merece con el máximo <strong>ahorro en su plan de salud</strong>.
