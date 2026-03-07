@@ -26,7 +26,7 @@ const AboutUs = () => {
             </p>
             <p className={styles.description}>
               Nos encargamos de <strong>cotizar, comparar y recomendar</strong>{" "}
-              los planes más adecuados <strong>para tu beneficioy ahorro</strong>.
+              los planes más adecuados <strong>para tu beneficio y ahorro</strong>.
               Nuestro objetivo es asegurar que cada trabajador, ya sea
               dependiente o independiente, reciba el cuidado y la protección que
               merece con el máximo <strong>ahorro en su plan de salud</strong>.
