@@ -24,7 +24,7 @@ const AboutUs = () => {
               garantizando siempre las mejores opciones en{" "}
               <strong>cobertura, excedentes y beneficios hospitalarios</strong>.
             </p>
-            <p>
+            <p className={styles.description}>
               Nos encargamos de <strong>cotizar, comparar y recomendar</strong>{" "}
               los planes más adecuados <strong>para tu beneficioy ahorro</strong>.
               Nuestro objetivo es asegurar que cada trabajador, ya sea
