@@ -14,7 +14,7 @@ const BannerPanel = ( ) => {
     <React.Fragment>
         <section className={styles.heroBanner}>
           <div className={styles.textBanner}>
-            <h1 className={styles.title}> ¿Buscas El Mejor Plan De Isapre?</h1>
+            <h1 className={styles.title}>Cotiza tu Isapre: Compara los Mejores Planes de Salud en Chile</h1>
             <p className={styles.description}> Te asesoramos gratis y sin compromiso.
             Encuentra el plan ideal para ti y tu familia... </p>
             <p className={styles.description}> Compara, elige y ahorra.
