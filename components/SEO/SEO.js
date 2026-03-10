@@ -1,13 +1,22 @@
+import React from 'react';
 import Head from 'next/head';
+
+/**
+ * 🚀 COMPONENTE SEO - VERSIÓN BANMÉDICA PRIORITARIA
+ * Hemos puesto a Banmédica como la marca principal en la descripción
+ * para mejorar el posicionamiento en ese nicho específico.
+ */
 
 const SITE_URL = 'https://cotizatuisapreya.cl';
 
 const defaultSEO = {
-  title: 'Cotiza tu Isapre | Asesoría Gratuita - Compara Planes de Salud en Chile',
+  title: 'Cotiza tu Isapre: Compara Planes de Salud y Ahorra',
   description:
-    '¿Buscas el mejor plan de Isapre? Te asesoramos gratis y sin compromiso. Compara planes de salud, elige y ahorra. Cotiza tu plan de Isapre hoy mismo.',
+    'Especialistas en planes de salud Banmédica, Colmena, Consalud y más. Compara beneficios, optimiza tus excedentes y encuentra tu Isapre ideal con asesoría gratuita.',
+  keywords: 
+    'isapre banmedica, cotizar isapre, planes de salud chile, asesoría isapre, comparar isapres, banmedica planes, colmena, consalud, excedentes isapre',
   image: `${SITE_URL}/og-image.jpg`,
-  imageAlt: 'Cotiza tu Isapre - Asesoría en planes de salud',
+  imageAlt: 'Cotiza tu Isapre - Asesoría experta con foco en Banmédica',
   locale: 'es_CL',
   type: 'website',
 };
@@ -15,6 +24,7 @@ const defaultSEO = {
 export default function SEO({
   title = defaultSEO.title,
   description = defaultSEO.description,
+  keywords = defaultSEO.keywords,
   image = defaultSEO.image,
   imageAlt = defaultSEO.imageAlt,
   url = SITE_URL,
@@ -33,58 +43,41 @@ export default function SEO({
         url: SITE_URL,
         name: 'Cotiza tu Isapre',
         description: defaultSEO.description,
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: { '@type': 'EntryPoint', urlTemplate: `${SITE_URL}/#cotizar` },
-          'query-input': 'required name=search_term_string',
-        },
       },
       {
         '@type': 'Organization',
-        name: 'Cotiza tu Isapre',
+        name: 'Cotiza tu Isapre Ya',
         url: SITE_URL,
-        description: 'Asesoría gratuita en planes de Isapre. Compara y elige el mejor plan de salud para ti y tu familia.',
+        description: 'Líderes en asesoría de planes de salud con convenios destacados en Banmédica y principales Isapres.',
         areaServed: { '@type': 'Country', name: 'Chile' },
-      },
-      {
-        '@type': 'WebPage',
-        '@id': `${fullUrl}/#webpage`,
-        url: fullUrl,
-        name: fullTitle,
-        description,
-        isPartOf: { '@id': `${SITE_URL}/#website` },
-      },
+        contactPoint: {
+          '@type': 'ContactPoint',
+          'telephone': '+56990856075',
+          'contactType': 'customer service'
+        }
+      }
     ],
   };
 
   return (
     <Head>
-      {/* Básicos */}
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="keywords" content={keywords} />
       <link rel="canonical" href={fullUrl} />
-      {noindex && <meta name="robots" content="noindex, nofollow" />}
-
-      {/* Open Graph (Facebook, LinkedIn, etc.) */}
-      <meta property="og:type" content={type} />
-      <meta property="og:url" content={fullUrl} />
+      
+      {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
-      <meta property="og:image:alt" content={imageAlt} />
-      <meta property="og:locale" content={defaultSEO.locale} />
+      <meta property="og:url" content={fullUrl} />
       <meta property="og:site_name" content="Cotiza tu Isapre" />
-
-      {/* Twitter Card */}
+      
+      {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={fullUrl} />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
-      <meta name="twitter:image:alt" content={imageAlt} />
 
-      {/* Datos estructurados (JSON-LD) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

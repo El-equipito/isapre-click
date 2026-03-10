@@ -1,46 +1,41 @@
 import React from "react";
-import { Grid, Box, Typography, Container } from "@mui/material";
-import Image from "next/legacy/image";
+import { Grid, Box, Container, Typography } from "@mui/material";
+import Image from "next/image";
 import styles from "./AboutUs.module.scss";
+
+/**
+ * 📝 SECCIÓN "SOBRE NOSOTROS" EQUILIBRADA
+ * Posicionamos a Banmédica como líder en nuestra red de convenios 
+ * pero resaltamos la capacidad de comparar todo el mercado chileno.
+ */
 
 const AboutUs = () => {
   return (
     <section id="sobre-nosotros" className={styles.ContBenefits}>
       <h2 className={styles.title}>
-        Asesoría Experta: Expertos en Previsión de Salud
+        Asesoría Experta: Comparamos las Mejores Isapres de Chile
       </h2>
       <Container className={styles.AboutUsCont}>
-        <Grid container className={styles.benefitsGeneralCont}>
-          {/* Texto */}
-          <Grid item xs={12} sm={6} className={styles.textContainer}>
-            <p className={styles.description}>
-              En nuestro equipo, somos un grupo de{" "}
-              <strong>
-                asesores comerciales especializados en planes de salud
-              </strong>{" "}
-              a través de las principales <strong>Isapres de Chile</strong>. Nos
-              apasiona ofrecer una <strong>asesoría personalizada</strong> que
-              se ajusta a las necesidades reales de cada cliente y beneficiario,
-              garantizando siempre las mejores opciones en{" "}
-              <strong>cobertura, excedentes y beneficios hospitalarios</strong>.
-            </p>
-            <p className={styles.description}>
-              Nos encargamos de <strong>cotizar, comparar y recomendar</strong>{" "}
-              los planes más adecuados <strong>para tu beneficio y ahorro</strong>.
-              Nuestro objetivo es asegurar que cada trabajador, ya sea
-              dependiente o independiente, reciba el cuidado y la protección que
-              merece con el máximo <strong>ahorro en su plan de salud</strong>.
-            </p>
+        <Grid container className={styles.benefitsGeneralCont} spacing={4}>
+          {/* Texto Optimizado: Foco en Banmédica sin exclusividad */}
+          <Grid item xs={12} md={6} className={styles.textContainer}>
+            <Typography variant="body1" className={styles.description} component="p" gutterBottom>
+              En nuestro equipo, somos un grupo de <strong>asesores especializados en previsión de salud</strong> con convenios destacados en <strong>Isapres Banmédica, Colmena, Consalud, Esencial, Vida Tres, Nueva Masvida y</strong>  todas las instituciones más importantes del país. Nos apasiona ofrecer una <strong>asesoría integral y personalizada</strong> que se adapta a la realidad de cada cliente y su familia.
+            </Typography>
+            <Typography variant="body1" className={styles.description} component="p">
+              Nuestra labor es <strong>cotizar, comparar y recomendar</strong> de forma objetiva los planes más competitivos de <strong>las distintas Isapres de Chile</strong>. Buscamos maximizar tu <strong>ahorro y excedentes</strong>, asegurando que obtengas la mejor red de clínicas y beneficios hospitalarios según tu 7% de cotización legal.
+            </Typography>
           </Grid>
 
-          <Grid item xs={12} sm={6} display={"flex"} justifyContent={"center"}>
-            <Box className={styles.imageContainer}>
+          {/* Imagen representativa */}
+          <Grid item xs={12} md={6} display={"flex"} justifyContent={"center"}>
+            <Box className={styles.imageContainer} sx={{ position: 'relative', width: '100%', height: '300px' }}>
               <Image
-                width={500}
-                height={300}
+                layout="fill"
+                objectFit="cover"
                 src="/asesores.jpg"
-                alt="asesores salud"
-                className={styles.image} // Asegúrate de que en tu CSS la clase .image tenga un 100% de ancho
+                alt="Asesoría experta en Isapres"
+                className={styles.image}
               />
             </Box>
           </Grid>
