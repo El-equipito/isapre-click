@@ -1,20 +1,26 @@
 import React, { useState } from "react";
+import { useRouter } from 'next/router';
 import {
   Box,
   Grid,
   TextField,
   Checkbox,
   FormControlLabel,
-  Button,
   IconButton,
 } from "@mui/material";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import styles from "./FormPrincipal.module.scss";
 
+/**
+ * 🚀 FORMULARIO PRINCIPAL - VERSIÓN CON REDIRECCIÓN A /GRACIAS
+ */
 const FormPrincipal = () => {
+  // 1. Inicializamos el router de Next.js
+  const router = useRouter();
+
   const schema = yup.object().shape({
     name: yup.string().required("Este campo es requerido"),
     age: yup
@@ -58,7 +64,6 @@ const FormPrincipal = () => {
     handleSubmit,
     control,
     formState: { errors },
-    watch,
     reset,
   } = useForm({
     resolver: yupResolver(schema),
@@ -74,7 +79,6 @@ const FormPrincipal = () => {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     try {
-      // Enviar 0 si no hay dependientes, o el array si los hay
       const processedData = {
         ...data,
         dependentsList:
@@ -97,50 +101,30 @@ const FormPrincipal = () => {
       const result = await response.json();
 
       if (!response.ok) {
-        // el backend devuelve message, error y statusCode
-        const errorMsg =
-          result.message || result.error || "Error al enviar los datos";
-
-        // si el servidor considera un rut o email duplicado como 400/409
+        const errorMsg = result.message || result.error || "Error al enviar los datos";
         const lower = errorMsg.toLowerCase();
-        const isDuplicate =
-          lower.includes("ya está registrado") ||
-          lower.includes("ya fue registrado") ||
-          lower.includes("ya existe");
-
-        if (isDuplicate) {
-          if (lower.includes("rut")) {
-            toast.error("El RUT ingresado ya fue registrado");
-          } else if (lower.includes("email") || lower.includes("correo")) {
-            toast.error("El correo electrónico ingresado ya fue registrado");
-          } else {
-            toast.error(errorMsg);
-          }
-        } else if (response.status === 409) {
-          // casos explícitos de conflicto aunque no se usen actualmente
-          if (lower.includes("rut")) {
-            toast.error("El RUT ingresado ya fue registrado");
-          } else if (lower.includes("email") || lower.includes("correo")) {
-            toast.error("El correo electrónico ingresado ya fue registrado");
-          } else {
-            toast.error(errorMsg);
-          }
+        
+        if (lower.includes("rut")) {
+          toast.error("El RUT ingresado ya fue registrado");
+        } else if (lower.includes("email") || lower.includes("correo")) {
+          toast.error("El correo electrónico ingresado ya fue registrado");
         } else {
-          // otros errores no duplicados
           toast.error(errorMsg);
         }
-
         throw new Error(errorMsg);
       }
 
-      console.log("Respuesta del servidor:", result);
+      // ✅ ÉXITO: Notificamos, reseteamos y redirigimos
       toast.success("Datos enviados correctamente");
       reset();
-      setIsSubmitting(false); // Re-enable after success
+      
+      // 2. Ejecutamos la redirección a la página de gracias
+      // Esto activará la conversión en Google Ads
+      router.push('/gracias');
+
     } catch (e) {
       console.error(e);
-      setIsSubmitting(false); // Re-enable on error to allow retry
-      // el toast ya se maneja arriba según el tipo de error
+      setIsSubmitting(false); 
     }
   };
 
@@ -166,14 +150,8 @@ const FormPrincipal = () => {
             error={!!errors.name}
             helperText={errors.name?.message}
             sx={{
-              "& label.Mui-focused": {
-                color: "#24b9cc", // Color del label al enfocar
-              },
-              "& .MuiOutlinedInput-root": {
-                "&.Mui-focused fieldset": {
-                  borderColor: "#24b9cc", // Borde al enfocar
-                },
-              },
+              "& label.Mui-focused": { color: "#24b9cc" },
+              "& .MuiOutlinedInput-root": { "&.Mui-focused fieldset": { borderColor: "#24b9cc" } },
             }}
           />
         </Grid>
@@ -187,14 +165,8 @@ const FormPrincipal = () => {
             error={!!errors.age}
             helperText={errors.age?.message}
             sx={{
-              "& label.Mui-focused": {
-                color: "#24b9cc", // Color del label al enfocar
-              },
-              "& .MuiOutlinedInput-root": {
-                "&.Mui-focused fieldset": {
-                  borderColor: "#24b9cc", // Borde al enfocar
-                },
-              },
+              "& label.Mui-focused": { color: "#24b9cc" },
+              "& .MuiOutlinedInput-root": { "&.Mui-focused fieldset": { borderColor: "#24b9cc" } },
             }}
           />
         </Grid>
@@ -208,14 +180,8 @@ const FormPrincipal = () => {
             error={!!errors.rut}
             helperText={errors.rut?.message}
             sx={{
-              "& label.Mui-focused": {
-                color: "#24b9cc", // Color del label al enfocar
-              },
-              "& .MuiOutlinedInput-root": {
-                "&.Mui-focused fieldset": {
-                  borderColor: "#24b9cc", // Borde al enfocar
-                },
-              },
+              "& label.Mui-focused": { color: "#24b9cc" },
+              "& .MuiOutlinedInput-root": { "&.Mui-focused fieldset": { borderColor: "#24b9cc" } },
             }}
           />
         </Grid>
@@ -229,14 +195,8 @@ const FormPrincipal = () => {
             error={!!errors.email}
             helperText={errors.email?.message}
             sx={{
-              "& label.Mui-focused": {
-                color: "#24b9cc", // Color del label al enfocar
-              },
-              "& .MuiOutlinedInput-root": {
-                "&.Mui-focused fieldset": {
-                  borderColor: "#24b9cc", // Borde al enfocar
-                },
-              },
+              "& label.Mui-focused": { color: "#24b9cc" },
+              "& .MuiOutlinedInput-root": { "&.Mui-focused fieldset": { borderColor: "#24b9cc" } },
             }}
           />
         </Grid>
@@ -250,14 +210,8 @@ const FormPrincipal = () => {
             error={!!errors.phone}
             helperText={errors.phone?.message}
             sx={{
-              "& label.Mui-focused": {
-                color: "#24b9cc", // Color del label al enfocar
-              },
-              "& .MuiOutlinedInput-root": {
-                "&.Mui-focused fieldset": {
-                  borderColor: "#24b9cc", // Borde al enfocar
-                },
-              },
+              "& label.Mui-focused": { color: "#24b9cc" },
+              "& .MuiOutlinedInput-root": { "&.Mui-focused fieldset": { borderColor: "#24b9cc" } },
             }}
           />
         </Grid>
@@ -271,14 +225,8 @@ const FormPrincipal = () => {
             error={!!errors.income}
             helperText={errors.income?.message}
             sx={{
-              "& label.Mui-focused": {
-                color: "#24b9cc", // Color del label al enfocar
-              },
-              "& .MuiOutlinedInput-root": {
-                "&.Mui-focused fieldset": {
-                  borderColor: "#24b9cc", // Borde al enfocar
-                },
-              },
+              "& label.Mui-focused": { color: "#24b9cc" },
+              "& .MuiOutlinedInput-root": { "&.Mui-focused fieldset": { borderColor: "#24b9cc" } },
             }}
           />
         </Grid>
@@ -292,14 +240,8 @@ const FormPrincipal = () => {
             error={!!errors.region}
             helperText={errors.region?.message}
             sx={{
-              "& label.Mui-focused": {
-                color: "#24b9cc", // Color del label al enfocar
-              },
-              "& .MuiOutlinedInput-root": {
-                "&.Mui-focused fieldset": {
-                  borderColor: "#24b9cc", // Borde al enfocar
-                },
-              },
+              "& label.Mui-focused": { color: "#24b9cc" },
+              "& .MuiOutlinedInput-root": { "&.Mui-focused fieldset": { borderColor: "#24b9cc" } },
             }}
           />
         </Grid>
@@ -313,14 +255,8 @@ const FormPrincipal = () => {
             error={!!errors.commune}
             helperText={errors.commune?.message}
             sx={{
-              "& label.Mui-focused": {
-                color: "#24b9cc", // Color del label al enfocar
-              },
-              "& .MuiOutlinedInput-root": {
-                "&.Mui-focused fieldset": {
-                  borderColor: "#24b9cc", // Borde al enfocar
-                },
-              },
+              "& label.Mui-focused": { color: "#24b9cc" },
+              "& .MuiOutlinedInput-root": { "&.Mui-focused fieldset": { borderColor: "#24b9cc" } },
             }}
           />
         </Grid>
@@ -333,12 +269,8 @@ const FormPrincipal = () => {
                 onChange={(e) => {
                   const checked = e.target.checked;
                   setHasDependents(checked);
-                  if (checked && fields.length === 0)
-                    append({ rut: "", age: "" });
-                  if (!checked) {
-                    // remove all
-                    for (let i = fields.length - 1; i >= 0; i--) remove(i);
-                  }
+                  if (checked && fields.length === 0) append({ rut: "", age: "" });
+                  if (!checked) fields.forEach((_, i) => remove(i));
                 }}
               />
             }
@@ -346,18 +278,7 @@ const FormPrincipal = () => {
           />
 
           {hasDependents && (
-            <Box
-              sx={{
-                "& label.Mui-focused": {
-                  color: "#24b9cc", // Color del label al enfocar
-                },
-                "& .MuiOutlinedInput-root": {
-                  "&.Mui-focused fieldset": {
-                    borderColor: "#24b9cc", // Borde al enfocar
-                  },
-                },
-              }}
-            >
+            <Box sx={{ "& label.Mui-focused": { color: "#24b9cc" }, "& .MuiOutlinedInput-root": { "&.Mui-focused fieldset": { borderColor: "#24b9cc" } } }}>
               {fields.map((field, index) => (
                 <Grid container spacing={1} key={field.id} sx={{ mb: 1 }}>
                   <Grid item xs={6}>
@@ -380,34 +301,14 @@ const FormPrincipal = () => {
                       helperText={errors.dependentsList?.[index]?.age?.message}
                     />
                   </Grid>
-                  <Grid
-                    item
-                    xs={2}
-                    sx={{ display: "flex", alignItems: "center" }}
-                  >
-                    <IconButton
-                      aria-label="remove"
-                      onClick={() => remove(index)}
-                    >
-                      x
-                    </IconButton>
+                  <Grid item xs={2} sx={{ display: "flex", alignItems: "center" }}>
+                    <IconButton aria-label="remove" onClick={() => remove(index)}>x</IconButton>
                   </Grid>
                 </Grid>
               ))}
-              <div>
-                <button
-                  type="button"
-                  onClick={() => append({ rut: "", age: "" })}
-                  className={styles.btnDependts}
-                  style={{
-                    textAlign: "center",
-                    marginTop: "10px",
-                    width: "100%",
-                  }}
-                >
-                  Agregar Cargas
-                </button>
-              </div>
+              <button type="button" onClick={() => append({ rut: "", age: "" })} className={styles.btnDependts} style={{ marginTop: "10px", width: "100%" }}>
+                Agregar Cargas
+              </button>
             </Box>
           )}
         </Grid>
@@ -421,27 +322,15 @@ const FormPrincipal = () => {
             error={!!errors.healthInsurance}
             helperText={errors.healthInsurance?.message}
             sx={{
-              "& label.Mui-focused": {
-                color: "#24b9cc", // Color del label al enfocar
-              },
-              "& .MuiOutlinedInput-root": {
-                "&.Mui-focused fieldset": {
-                  borderColor: "#24b9cc", // Borde al enfocar
-                },
-              },
+              "& label.Mui-focused": { color: "#24b9cc" },
+              "& .MuiOutlinedInput-root": { "&.Mui-focused fieldset": { borderColor: "#24b9cc" } },
             }}
           />
         </Grid>
       </Grid>
 
-      <Box
-        sx={{ marginTop: "20px", display: "flex", justifyContent: "center" }}
-      >
-        <button
-          type="submit"
-          className={styles.btnHero}
-          disabled={isSubmitting}
-        >
+      <Box sx={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
+        <button type="submit" className={styles.btnHero} disabled={isSubmitting}>
           {isSubmitting ? "Enviando..." : "Enviar"}
         </button>
       </Box>
