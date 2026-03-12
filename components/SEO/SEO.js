@@ -62,6 +62,7 @@ export default function SEO({
   return (
     <Head>
       <title>{fullTitle}</title>
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
       <link rel="canonical" href={fullUrl} />

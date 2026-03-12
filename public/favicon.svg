@@ -1,0 +1,10 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo circular para dar contraste (opcional) -->
+  <circle cx="16" cy="16" r="16" fill="#48C9D4"/>
+  
+  <!-- Escudo simplificado del logo -->
+  <path d="M16 6L24 9.5V16C24 21 20.5 24.5 16 26C11.5 24.5 8 21 8 16V9.5L16 6Z" fill="white"/>
+  
+  <!-- Letra C central -->
+  <text x="16" y="19" font-family="Arial, sans-serif" font-weight="bold" font-size="12" text-anchor="middle" fill="#48C9D4">C</text>
+</svg>
