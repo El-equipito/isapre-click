@@ -1,22 +1,27 @@
 import React from 'react';
 import { Container, Typography, Button, Box } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-// Importa tu componente SEO desde la ruta que mencionaste
-// import SEO from '../seo/SEO'; 
 
 /**
- * 🎯 PÁGINA DE CONVERSIÓN (GRACIAS) - VERSIÓN JAVASCRIPT (.js)
- * Esta estructura es la estándar para Next.js (Pages Router).
+ * 🎯 PÁGINA DE CONVERSIÓN (GRACIAS) - VERSIÓN FINAL
+ * Incluye:
+ * 1. Redirección corregida al inicio.
+ * 2. Seguimiento de conversiones de Google Ads.
  */
 
 // Nota para tu proyecto local: 
-// Asegúrate de usar 'import Head from "next/head"' y 'import { useRouter } from "next/router"'
-// para que el SEO y la navegación funcionen correctamente en producción.
+// Asegúrate de usar las importaciones reales de Next.js en tu VS Code:
+// import Head from 'next/head';
+// import { useRouter } from 'next/router';
 
-// Mocks para que el código compile en la vista previa del editor
+// Mocks para previsualización (mantener los originales en tu servidor)
 const Head = ({ children }) => <>{children}</>;
 const useRouter = () => ({
-  push: (url) => console.log(`Navegando a: ${url}`),
+  push: (url) => {
+    if (typeof window !== 'undefined') {
+      window.location.href = url; // Método robusto para volver a la landing
+    }
+  },
 });
 
 const ThankYouPage = () => {
@@ -24,12 +29,35 @@ const ThankYouPage = () => {
 
   return (
     <>
-      {/* Si decides usar tu componente SEO aquí, sería así:
-          <SEO title="¡Solicitud Recibida!" noindex={true} />
-      */}
       <Head>
         <title>¡Solicitud Recibida! | Cotiza tu Isapre Ya</title>
         <meta name="robots" content="noindex" />
+
+        {/* 1. Etiqueta global de Google (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11363002260"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-11363002260');
+            `,
+          }}
+        />
+
+        {/* 2. Evento de conversión específico de Google Ads */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              gtag('event', 'conversion', {
+                  'send_to': 'AW-11363002260/SUBMIT_LEAD_FORM',
+                  'value': 1.0,
+                  'currency': 'CLP'
+              });
+            `,
+          }}
+        />
       </Head>
 
       <Container maxWidth="sm">
@@ -47,7 +75,6 @@ const ThankYouPage = () => {
             fontFamily: 'sans-serif'
           }}
         >
-          {/* Icono de éxito con el color corporativo */}
           <CheckCircleOutlineIcon sx={{ fontSize: 80, color: '#48C9D4', marginBottom: 2 }} />
           
           <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold', color: '#1a365d' }}>
