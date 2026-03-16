@@ -24,6 +24,11 @@ const BannerPanel = ( ) => {
               COTIZAR PLAN
             </Button>
           </Link>
+          <Link href="https://wa.me/56990856075?text=Hola, necesito asesoría con mi plan de Isapre. Vengo desde la web." passHref legacyBehavior>
+            <Button target="_blank" className={styles.btnClas}>
+              CONTACTA POR WHATSAPP
+            </Button>
+          </Link>
           </div>
         </section>
     </React.Fragment>

@@ -2,7 +2,6 @@ import '../styles/global.scss';  // Estilos globales
 import 'react-toastify/dist/ReactToastify.css'; // Estilos de react-toastify
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ToastContainer } from 'react-toastify';
-// Importación que ya tenías lista
 import WhatsAppButton from '../components/Rrss/whatsapp';
 
 let theme = createTheme({
