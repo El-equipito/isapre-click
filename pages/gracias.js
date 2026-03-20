@@ -3,23 +3,18 @@ import { Container, Typography, Button, Box } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 /**
- * 🎯 PÁGINA DE CONVERSIÓN (GRACIAS) - VERSIÓN FINAL
+ * 🎯 PÁGINA DE CONVERSIÓN (GRACIAS) - VERSIÓN FINAL INTEGRADA
  * Incluye:
- * 1. Redirección corregida al inicio.
- * 2. Seguimiento de conversiones de Google Ads.
+ * 1. Seguimiento de conversiones de Google Ads.
+ * 2. Seguimiento de Lead para Meta Pixel.
  */
 
-// Nota para tu proyecto local: 
-// Asegúrate de usar las importaciones reales de Next.js en tu VS Code:
-// import Head from 'next/head';
-// import { useRouter } from 'next/router';
-
-// Mocks para previsualización (mantener los originales en tu servidor)
+// Mocks para previsualización (Recuerda usar imports reales en VS Code)
 const Head = ({ children }) => <>{children}</>;
 const useRouter = () => ({
   push: (url) => {
     if (typeof window !== 'undefined') {
-      window.location.href = url; // Método robusto para volver a la landing
+      window.location.href = url;
     }
   },
 });
@@ -33,7 +28,7 @@ const ThankYouPage = () => {
         <title>¡Solicitud Recibida! | Cotiza tu Isapre Ya</title>
         <meta name="robots" content="noindex" />
 
-        {/* 1. Etiqueta global de Google (gtag.js) */}
+        {/* 📊 1. Google Ads: Etiqueta Global */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11363002260"></script>
         <script
           dangerouslySetInnerHTML={{
@@ -46,7 +41,7 @@ const ThankYouPage = () => {
           }}
         />
 
-        {/* 2. Evento de conversión específico de Google Ads */}
+        {/* 🎯 2. Google Ads: Evento de Conversión */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -55,6 +50,18 @@ const ThankYouPage = () => {
                   'value': 1.0,
                   'currency': 'CLP'
               });
+            `,
+          }}
+        />
+
+        {/* 💎 3. Meta Pixel: Evento de Lead (Conversión) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (window.fbq) {
+                fbq('track', 'Lead');
+                console.log("✅ Meta Pixel: Conversión 'Lead' registrada");
+              }
             `,
           }}
         />
